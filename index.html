@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faizaan's Portfolio 🌙</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: #0d0d0d;
+      color: #f0f0f0;
+    }
+    .container {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #00ff99;
+    }
+    img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+    button, input {
+      background: #1a1a1a;
+      border: 1px solid #00ff99;
+      color: #00ff99;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill {
+      background: #262626;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    #terminal {
+      background: #000;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      height: 300px;
+      overflow-y: auto;
+    }
+    #output {
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+    }
+    #matrix {
+      font-family: monospace;
+      color: lime;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="page1">
+    <h1>Hey, This is Faizaan 🌙</h1>
+    <p>I'm a Middle Schooler in India. I'm currently in 7th grade & part of Hack Club!</p>
+    <img src="https://avatars.githubusercontent.com/u/16999862?v=4" alt="Faizaan's Profile">
+
+    <h2>Skills & Interests</h2>
+    <div class="skills">
+      <div class="skill">🟨 JavaScript</div>
+      <div class="skill">🎨 HTML/CSS</div>
+      <div class="skill">🐍 Python</div>
+      <div class="skill">🎮 Valorant</div>
+      <div class="skill">📚 Reading</div>
+      <div class="skill">🏫 Hack Club</div>
+      <div class="skill">💻 Web Dev</div>
+      <div class="skill">🎓 7th Grade</div>
+    </div>
+
+    <h2>Interactive Terminal</h2>
+    <div id="terminal">
+      <div id="output">faizaan@dev:~$ help
+Welcome to Faizaan's Interactive Terminal! 🚀
+Available commands:
+• about - Learn more about me
+• skills - View my technical skills
+• projects - See what I'm working on
+• games - My favorite games
+• books - What I'm reading
+• contact - Get in touch
+• clear - Clear the terminal
+• matrix - Enter the Matrix 😎
+• joke - Random programming joke</div>
+      <label>faizaan@dev:~$ <input id="terminalInput" type="text" onkeypress="if(event.key==='Enter'){runCommand()}" autofocus></label>
+    </div>
+
+    <button onclick="togglePage()">📁 View Projects</button>
+  </div>
+
+  <div class="container hidden" id="page2">
+    <h1>Projects</h1>
+    <ul>
+      <li>🎮 Click Rush: a fast-paced JS click game.</li>
+      <li>💡 Self-defense watch prototype (Bagel Grant!)</li>
+      <li>🧠 BrowserBuddy - a quirky browser extension</li>
+    </ul>
+    <button onclick="togglePage()">⬅️ Back to Terminal</button>
+  </div>
+
+  <script>
+    function togglePage() {
+      document.getElementById("page1").classList.toggle("hidden");
+      document.getElementById("page2").classList.toggle("hidden");
+    }
+
+    function runCommand() {
+      const input = document.getElementById("terminalInput");
+      const output = document.getElementById("output");
+      const val = input.value.toLowerCase().trim();
+      input.value = "";
+      let response = "";
+      if (val === "about") response = "Hi! I'm Faizaan. I love code, challenges and waffles!";
+      else if (val === "skills") response = "JavaScript, HTML/CSS, Python, Creativity, and debugging!";
+      else if (val === "projects") response = "Click Rush, Self-defense Watch, BrowserBuddy!";
+      else if (val === "games") response = "Valorant, Minecraft, and puzzle games.";
+      else if (val === "books") response = "Reading science fiction & tech comics!";
+      else if (val === "contact") response = "Email: faizaan20212021@gmail.com";
+      else if (val === "joke") response = ["Why do programmers prefer dark mode? Because light attracts bugs.", "Why was the JavaScript developer sad? Because he didn't 'null' his feelings."].sort(() => 0.5 - Math.random())[0];
+      else if (val === "matrix") {
+        matrixRain();
+        return;
+      }
+      else if (val === "clear") {
+        output.textContent = "";
+        return;
+      } else {
+        response = `Command not found: ${val}`;
+      }
+      output.textContent += `\nfaizaan@dev:~$ ${val}\n${response}`;
+    }
+
+    function matrixRain() {
+      let matrix = document.createElement("pre");
+      matrix.id = "matrix";
+      matrix.innerText = Array(300).fill(0).map(() => String.fromCharCode(33 + Math.random() * 94)).join("");
+      document.getElementById("terminal").appendChild(matrix);
+      setTimeout(() => matrix.remove(), 2000);
+    }
+  </script>
+</body>
+</html>

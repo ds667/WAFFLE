@@ -58,6 +58,9 @@
       font-family: monospace;
       color: lime;
     }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +95,7 @@ Available commands:
 • clear - Clear the terminal
 • matrix - Enter the Matrix 😎
 • joke - Random programming joke</div>
-      <label>faizaan@dev:~$ <input id="terminalInput" type="text" onkeypress="if(event.key==='Enter'){runCommand()}" autofocus></label>
+      <label>faizaan@dev:~$ <input id="terminalInput" type="text" onkeypress="if(event.key==='Enter'){runCommand()}"></label>
     </div>
 
     <button onclick="togglePage()">📁 View Projects</button>
@@ -106,6 +109,10 @@ Available commands:
       <li>🧠 BrowserBuddy - a quirky browser extension</li>
     </ul>
     <button onclick="togglePage()">⬅️ Back to Terminal</button>
+
+    <h2>Project Search</h2>
+    <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Search projects...">
+    <p id="searchStatus"></p>
   </div>
 
   <script>
@@ -117,21 +124,24 @@ Available commands:
     function runCommand() {
       const input = document.getElementById("terminalInput");
       const output = document.getElementById("output");
-      const val = input.value.toLowerCase().trim();
+      const val = input.value.trim();
       input.value = "";
       let response = "";
-      if (val === "about") response = "Hi! I'm Faizaan. I love code, challenges and waffles!";
-      else if (val === "skills") response = "JavaScript, HTML/CSS, Python, Creativity, and debugging!";
-      else if (val === "projects") response = "Click Rush, Self-defense Watch, BrowserBuddy!";
-      else if (val === "games") response = "Valorant, Minecraft, and puzzle games.";
-      else if (val === "books") response = "Reading science fiction & tech comics!";
-      else if (val === "contact") response = "Email: faizaan20212021@gmail.com";
-      else if (val === "joke") response = ["Why do programmers prefer dark mode? Because light attracts bugs.", "Why was the JavaScript developer sad? Because he didn't 'null' his feelings."].sort(() => 0.5 - Math.random())[0];
-      else if (val === "matrix") {
+      if (val.toLowerCase() === "about") response = "Hi! I'm Faizaan. I love code, challenges and waffles!";
+      else if (val.toLowerCase() === "skills") response = "JavaScript, HTML/CSS, Python, Creativity, and debugging!";
+      else if (val.toLowerCase() === "projects") response = "Click Rush, Self-defense Watch, BrowserBuddy!";
+      else if (val.toLowerCase() === "games") response = "Valorant, Minecraft, and puzzle games.";
+      else if (val.toLowerCase() === "books") response = "Reading science fiction & tech comics!";
+      else if (val.toLowerCase() === "contact") response = "Email: faizaan20212021@gmail.com";
+      else if (val.toLowerCase() === "joke") response = [
+        "Why do programmers prefer dark mode? Because light attracts bugs.",
+        "Why was the JavaScript developer sad? Because he didn't 'null' his feelings."
+      ].sort(() => 0.5 - Math.random())[0];
+      else if (val.toLowerCase() === "matrix") {
         matrixRain();
         return;
       }
-      else if (val === "clear") {
+      else if (val.toLowerCase() === "clear") {
         output.textContent = "";
         return;
       } else {
@@ -146,6 +156,21 @@ Available commands:
       matrix.innerText = Array(300).fill(0).map(() => String.fromCharCode(33 + Math.random() * 94)).join("");
       document.getElementById("terminal").appendChild(matrix);
       setTimeout(() => matrix.remove(), 2000);
+    }
+
+    function filterProjects() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const listItems = document.querySelectorAll("#page2 ul li");
+      let matches = 0;
+      listItems.forEach(item => {
+        if (item.textContent.toLowerCase().includes(input)) {
+          item.style.display = "list-item";
+          matches++;
+        } else {
+          item.style.display = "none";
+        }
+      });
+      document.getElementById("searchStatus").textContent = matches > 0 ? `${matches} project(s) found.` : "No projects found.";
     }
   </script>
 </body>

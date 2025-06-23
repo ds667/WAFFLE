@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faizaan's Projects</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: #0d0d0d;
+      color: #f0f0f0;
+      padding: 30px;
+    }
+    h1, h2 {
+      color: #00ff99;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button, input {
+      background: #1a1a1a;
+      border: 1px solid #00ff99;
+      color: #00ff99;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Projects</h1>
+  <ul id="projectList">
+    <li>🎮 Click Rush: a fast-paced JS click game.</li>
+    <li>💡 Self-defense watch prototype (Bagel Grant!)</li>
+    <li>🧠 BrowserBuddy - a quirky browser extension</li>
+  </ul>
+
+  <h2>Project Search</h2>
+  <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Search projects...">
+  <p id="searchStatus"></p>
+
+  <a href="index.html"><button>⬅️ Back to Home</button></a>
+
+  <script>
+    function filterProjects() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const listItems = document.querySelectorAll("#projectList li");
+      let matches = 0;
+      listItems.forEach(item => {
+        if (item.textContent.toLowerCase().includes(input)) {
+          item.style.display = "list-item";
+          matches++;
+        } else {
+          item.style.display = "none";
+        }
+      });
+      document.getElementById("searchStatus").textContent = matches > 0 ? `${matches} project(s) found.` : "No projects found.";
+    }
+  </script>
+</body>
+</html>

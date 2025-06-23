@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,13 +59,10 @@
       font-family: monospace;
       color: lime;
     }
-    .hidden {
-      display: none;
-    }
   </style>
 </head>
 <body>
-  <div class="container" id="page1">
+  <div class="container">
     <h1>Hey, This is Faizaan 🌙</h1>
     <p>I'm a Middle Schooler in India. I'm currently in 7th grade & part of Hack Club!</p>
     <img src="https://avatars.githubusercontent.com/u/16999862?v=4" alt="Faizaan's Profile">
@@ -98,29 +96,10 @@ Available commands:
       <label>faizaan@dev:~$ <input id="terminalInput" type="text" onkeypress="if(event.key==='Enter'){runCommand()}"></label>
     </div>
 
-    <button onclick="togglePage()">📁 View Projects</button>
-  </div>
-
-  <div class="container hidden" id="page2">
-    <h1>Projects</h1>
-    <ul>
-      <li>🎮 Click Rush: a fast-paced JS click game.</li>
-      <li>💡 Self-defense watch prototype (Bagel Grant!)</li>
-      <li>🧠 BrowserBuddy - a quirky browser extension</li>
-    </ul>
-    <button onclick="togglePage()">⬅️ Back to Terminal</button>
-
-    <h2>Project Search</h2>
-    <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Search projects...">
-    <p id="searchStatus"></p>
+    <a href="feature.html"><button>📁 View Projects</button></a>
   </div>
 
   <script>
-    function togglePage() {
-      document.getElementById("page1").classList.toggle("hidden");
-      document.getElementById("page2").classList.toggle("hidden");
-    }
-
     function runCommand() {
       const input = document.getElementById("terminalInput");
       const output = document.getElementById("output");
@@ -156,21 +135,6 @@ Available commands:
       matrix.innerText = Array(300).fill(0).map(() => String.fromCharCode(33 + Math.random() * 94)).join("");
       document.getElementById("terminal").appendChild(matrix);
       setTimeout(() => matrix.remove(), 2000);
-    }
-
-    function filterProjects() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const listItems = document.querySelectorAll("#page2 ul li");
-      let matches = 0;
-      listItems.forEach(item => {
-        if (item.textContent.toLowerCase().includes(input)) {
-          item.style.display = "list-item";
-          matches++;
-        } else {
-          item.style.display = "none";
-        }
-      });
-      document.getElementById("searchStatus").textContent = matches > 0 ? `${matches} project(s) found.` : "No projects found.";
     }
   </script>
 </body>

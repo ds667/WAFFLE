@@ -23,6 +23,10 @@
       background: #1a1a1a;
       padding: 10px;
       border-radius: 5px;
+      transition: box-shadow 0.3s ease;
+    }
+    li.glow {
+      box-shadow: 0 0 10px #00ff99;
     }
     button, input {
       background: #1a1a1a;
@@ -30,8 +34,12 @@
       color: #00ff99;
       padding: 10px;
       margin-top: 10px;
+      margin-right: 10px;
       border-radius: 5px;
       cursor: pointer;
+    }
+    #controls {
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -44,7 +52,11 @@
   </ul>
 
   <h2>Project Search</h2>
-  <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Search projects...">
+  <div id="controls">
+    <input type="text" id="searchInput" oninput="filterProjects()" placeholder="Search projects...">
+    <button onclick="highlightProjects()">✨ Highlight</button>
+    <button onclick="resetProjects()">🔄 Reset</button>
+  </div>
   <p id="searchStatus"></p>
 
   <a href="index.html"><button>⬅️ Back to Home</button></a>
@@ -61,8 +73,28 @@
         } else {
           item.style.display = "none";
         }
+        item.classList.remove("glow"); 
       });
       document.getElementById("searchStatus").textContent = matches > 0 ? `${matches} project(s) found.` : "No projects found.";
+    }
+
+    function highlightProjects() {
+      const listItems = document.querySelectorAll("#projectList li");
+      listItems.forEach(item => {
+        if (item.style.display !== "none") {
+          item.classList.add("glow");
+        }
+      });
+    }
+
+    function resetProjects() {
+      document.getElementById("searchInput").value = "";
+      const listItems = document.querySelectorAll("#projectList li");
+      listItems.forEach(item => {
+        item.style.display = "list-item";
+        item.classList.remove("glow");
+      });
+      document.getElementById("searchStatus").textContent = "";
     }
   </script>
 </body>
